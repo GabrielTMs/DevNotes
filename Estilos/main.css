@@ -137,10 +137,124 @@ input#icriarNota {
     border: 2px solid #dfdfdfa8;
     border-radius: 5px;
     box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.479);
+    transition: .3s;
+    cursor: pointer;
+}
+
+.iconPlus:hover {
+    border-color: #fff;
+    color: #ffffff;
+    transition: .2s;
+}
+
+.iconPlus:active {
+    background-color: #ffffffd2;
+    transition: .1s;
 }
 
 div#campoNotas {
+    margin-top: 40px;
+    width: 100%;
+    height: 100%;
     align-self: flex-start;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+
+div.nota {
+    width: 100%;
+    max-width: 290px;
+    height: 100%;
+    min-height: 260px;
+    padding: 6px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.61);
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+textarea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 7px;
+    font-size: 1.2em;
+    background-color: transparent;
+    border-radius: 4px;
+    color: #f3f3f3;
+}
+
+div#conteudoCampo {
+    width: 100%;
+    max-width: 230px;
+    height: 100%;
+    max-height: 190px;
+}
+
+.iconesNotes {
+    top: 20px;
+    left: 84%;
+    position: absolute;
+    font-size: 1.24em;
+    color: #242424;
+    cursor: pointer;
+    transition: .2s;
+    opacity: 0;
+    transition: .2s;
+}
+
+div.nota:hover .iconesNotes {
+    opacity: 1;
+    transition: .2s;
+}
+
+.fa-copy {
+    top: 59px;
+}
+
+.iconesNotes:hover {
+    color: #e0e0e0ad;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.336));
+    transition: .2s;
+}
+
+.iconesNotes:active {
+    color: #ffffff;
+    transition: .1s;
+}
+
+.iconPin {
+    position: absolute;
+    top: 80%;
+    left: 12px;
+    padding: 8px;
+    font-size: 1.2em;
+    background-color: transparent;
+    border: 1px solid #a0a0a0;
+    border-radius: 6px;
+    color: #a0a0a0;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.iconPin:hover {
+    border-color: #fff;
+    color: #fff;
+    transition: .2s;
+}
+
+.iconPin:active {
+    background-color: #fff;
+    transition: .1s;
 }
 
 .esconder {

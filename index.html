@@ -20,16 +20,31 @@
 
     <main>
         <div id="criarNotaCamp">
-            <input type="text" name="criarNota" id="icriarNota">
+            <input type="text" name="criarNota" id="icriarNota" placeholder="Crie uma nota aqui">
             <i class="fa-solid fa-plus iconPlus"></i>
         </div>
         <div id="campoNotas">
             <div class="nota">
-                <textarea name="notaText" id="inotaText"></textarea>
-                <i class="fa-solid fa-thumbtack"></i>
-                <i class="fa-solid fa-thumbtack-slash"></i>
-                <i class="fa-solid fa-copy iconesNotes"></i>
-                <i class="fa-solid fa-xmark iconesNotes"></i>
+                <div id="conteudoCampo">
+                    <textarea name="notaText" id="inotaText" placeholder="Escreva aqui"></textarea>
+                    <i class="fa-solid fa-copy iconesNotes"></i>
+                    <i class="fa-solid fa-xmark iconesNotes"></i>
+                </div>
+                <div id="pinCampo">
+                    <i class="fa-solid fa-thumbtack iconPin"></i>
+                    <i class="fa-solid fa-thumbtack-slash iconPin esconder"></i>
+                </div>
+            </div>
+            <div class="nota">
+                <div id="conteudoCampo">
+                    <textarea name="notaText" id="inotaText" placeholder="Escreva aqui"></textarea>
+                    <i class="fa-solid fa-copy iconesNotes"></i>
+                    <i class="fa-solid fa-xmark iconesNotes"></i>
+                </div>
+                <div id="pinCampo">
+                    <i class="fa-solid fa-thumbtack iconPin"></i>
+                    <i class="fa-solid fa-thumbtack-slash iconPin esconder"></i>
+                </div>
             </div>
         </div>
     </main>
