@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'FontPrinc';
+    src: url(../Fontes/MozillaText-VariableFont_wght.ttf) format(truetype);
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -7,27 +12,135 @@
 
 body {
     display: grid;
-    grid-template: 1fr 1fr/ 50px 1fr 50px;
+    grid-template: auto auto/ 50px 1fr 50px;
     /*background-color: #0f0f0f;*/
     background-color: #bebebe;
-    gap: 15px;
+    font-family: 'FontPrinc', Arial, Helvetica, sans-serif;
+    background-color: #111111d3;
 }
 
 header {
     grid-column: 1/-1;
     grid-row: 1/2;
-    background-color: #1a1a1a;
+    background-color: #242424;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    gap: 15%;
+    text-align: center;
+    gap: 12%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.815);
+    padding: 15px 7px;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2.2em;
+}
+
+div#inputBuscaCamp {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+input {
+    width: 100%;
+    padding: 4px 7px;
+    font-size: 1em;
+    border: none;
+    background-color: #888888;
+    border-radius: 16px;
+    transition: .1s;
+}
+
+input:focus-within {
+    background-color: #e6e6e6;
+}
+
+input::placeholder {
+    color: #ffffff8c;
+    text-align: center;
+}
+
+input:focus-within::placeholder {
+    color: #2424247e;
+}
+
+.iconSearch {
+    font-size: 1.2em;
+    color: #dfdfdfa8;
+    margin-right: 6px;
+    transform: translateY(14%);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.iconSearch:hover {
+    color: #f0f0f0;
+    transition: .2s;
+}
+
+#exportarBTN {
+    font-size: 1.05em;
+    padding: 7px;
+    border: 2px solid #ffffffa6;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #ffffffa6;
+    transition: .3s;
+    cursor: pointer;
+}
+
+#exportarBTN:hover {
+    border-color: #fff;
+    color: #ffffff;
+    transition: .2s;
+}
+
+#exportarBTN:active {
+    background-color: #ffffffd2;
+    transition: .1s;
 }
 
 main {
     grid-column: 2/-2;
     grid-row: 2/3;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 33px;
+}
 
+div#criarNotaCamp {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-left: 59px;
+}
+
+input#icriarNota {
+    border-radius: 5px;
+}
+
+.iconPlus {
+    font-size: 1.1em;
+    margin-left: 9px;
+    color: #dfdfdfa8;
+    background-color: #242424e1;
+    padding: 5px;
+    border: 2px solid #dfdfdfa8;
+    border-radius: 5px;
+    box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.479);
+}
+
+div#campoNotas {
+    align-self: flex-start;
 }
 
 .esconder {
