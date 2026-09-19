@@ -2,7 +2,18 @@ const btnCriarNota = document.querySelector("#criarNotaBtn");
 const inputCriar = document.querySelector("#icriarNota");
 const notasCampo = document.querySelector("#campoNotas");
 
+const recarregandoNota = () => {
+    carregandoNotas().forEach((notas) => {
+        const carregador = criarNotasElementos(notas.id, notas.conteudo, notas.pin);
+
+        notasCampo.appendChild(carregador);
+    })
+}
+
 const adicionarNota = () => {
+
+    const itens = carregandoNotas();
+
     const configNota = {
         id: generator(),
         conteudo: inputCriar.value,
@@ -12,6 +23,14 @@ const adicionarNota = () => {
     const criadorNotas = criarNotasElementos(configNota.id, configNota.conteudo);
 
     notasCampo.appendChild(criadorNotas)
+
+    itens.push(configNota);
+
+    salvandoNotaStorage(itens);
+
+    inputCriar.value = "";
+    
+    inputCriar.focus();
 }
 
 const generator = () => {
@@ -39,7 +58,18 @@ const criarNotasElementos = (id, conteudo, pin) => {
 
     return divCampConteudo;
 
+}
 
+const carregandoNotas = (notaStorage) => {
+    const jsonNotasCarrega = JSON.parse(localStorage.getItem("notasCriadas") || "[]");
+
+    // O "[]" com o || significa que ele vai ou me retornar uma array com algum item ou ele vai me retornar uma array vazia
+
+    return jsonNotasCarrega;
+}
+
+const salvandoNotaStorage = (notaStorage) => {
+    localStorage.setItem("notasCriadas", JSON.stringify(notaStorage));
 }
 
 
@@ -47,3 +77,5 @@ btnCriarNota.addEventListener("click", () => {
 
     adicionarNota();
 });
+
+recarregandoNota();
