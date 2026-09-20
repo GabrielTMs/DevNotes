@@ -2,12 +2,21 @@ const btnCriarNota = document.querySelector("#criarNotaBtn");
 const inputCriar = document.querySelector("#icriarNota");
 const notasCampo = document.querySelector("#campoNotas");
 
-const recarregandoNota = () => {
+// esse recarregandoNotaVIsual serve para recarregar as notas com pin:true
+
+const recarregandoNotaVIsual = () => {
+
+    limpandoNotPinned();
+
     carregandoNotas().forEach((notas) => {
         const carregador = criarNotasElementos(notas.id, notas.conteudo, notas.pin);
 
         notasCampo.appendChild(carregador);
     })
+}
+
+const limpandoNotPinned = () => {
+    notasCampo.replaceChildren([]);
 }
 
 const adicionarNota = () => {
@@ -35,11 +44,14 @@ const adicionarNota = () => {
     inputCriar.focus();
 }
 
+// generator serve para carregar o id de um elemento criado randomicamente
+
 const generator = () => {
     return Math.floor(Math.random() * 5000);
 }
 
 const criarNotasElementos = (id, conteudo, pin) => {
+
     const divCampConteudo = document.createElement("div");
     divCampConteudo.classList.add("nota");
 
@@ -60,9 +72,19 @@ const criarNotasElementos = (id, conteudo, pin) => {
     const pinSlashedIcons = document.createElement("i");
     pinSlashedIcons.classList.add(...["fa-solid", "fa-thumbtack-slash", "iconPin", "esconder"]);
 
+    const btnExcluir = document.createElement("i");
+    btnExcluir.classList.add(...["fa-solid", "fa-xmark", "iconesNotes"]);
+
+    const btnCopiar = document.createElement("i");
+    btnCopiar.classList.add(...["fa-solid", "fa-copy", "iconesNotes"]);
+
     divCampConteudo.appendChild(divConteudo);
 
     divConteudo.appendChild(areaText);
+    
+    divConteudo.appendChild(btnExcluir);
+    
+    divConteudo.appendChild(btnCopiar);
 
     divCampConteudo.appendChild(divPinCampo);
 
@@ -95,8 +117,50 @@ const criarNotasElementos = (id, conteudo, pin) => {
         pinFunction(id);
     });
 
+    divConteudo.addEventListener("click", (e) => {
+
+
+        if (e.target.closest(".fa-xmark")) {
+            excluindoNotaFunction(id, divCampConteudo);
+        }
+        
+        if (e.target.closest(".fa-copy")) {
+            duplicandoNota(id);
+        }
+    });
+
     return divCampConteudo;
 
+}
+
+function excluindoNotaFunction(id, divCampConteudo) {
+    const pegandoParaExcluir = carregandoNotas().filter((nota) => nota.id !== id );
+
+    salvandoNotaStorage(pegandoParaExcluir);
+
+    notasCampo.removeChild(divCampConteudo);
+
+}
+
+function duplicandoNota(id) {
+    const itens = carregandoNotas();
+
+    const filtrandoNotas = itens.filter((nota) => nota.id === id)[0];
+
+    const gerandoCopiaNota = {
+        id: generator(),
+        conteudo: filtrandoNotas.conteudo,
+        pin: false,
+    };
+
+    const criandoCopia = criarNotasElementos(gerandoCopiaNota.id, gerandoCopiaNota.conteudo, gerandoCopiaNota.pin);
+
+    notasCampo.appendChild(criandoCopia)
+
+    itens.push(gerandoCopiaNota);
+
+    salvandoNotaStorage(itens);
+    
 }
 
 const pinFunction = (id) => {
@@ -109,6 +173,8 @@ const pinFunction = (id) => {
     salvandoNotaStorage(pegandoElementSalvos);
 
     console.log(pegandoElementSalvos);
+
+    recarregandoNotaVIsual();
 };
 
 const carregandoNotas = () => {
@@ -116,7 +182,11 @@ const carregandoNotas = () => {
 
     // O "[]" com o || significa que ele vai ou me retornar uma array com algum item ou ele vai me retornar uma array vazia
 
-    return jsonNotasCarrega;
+    const ordemPinnedNota = jsonNotasCarrega.sort((a, b) => (a.pin > b.pin ? -1 : 1));
+
+    return ordemPinnedNota;
+
+    // nesse return antes de ter as funções de reorganizar por pin, pode utilizar a primeira váriavel jsonNotasCarrega.
 }
 
 const salvandoNotaStorage = (notaStorage) => {
@@ -129,4 +199,4 @@ btnCriarNota.addEventListener("click", () => {
     adicionarNota();
 });
 
-recarregandoNota();
+recarregandoNotaVIsual();
