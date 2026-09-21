@@ -2,6 +2,8 @@ const btnCriarNota = document.querySelector("#criarNotaBtn");
 const inputCriar = document.querySelector("#icriarNota");
 const notasCampo = document.querySelector("#campoNotas");
 
+const pesquisaInput = document.querySelector("#ibusca");
+
 // esse recarregandoNotaVIsual serve para recarregar as notas com pin:true
 
 const recarregandoNotaVIsual = () => {
@@ -129,6 +131,12 @@ const criarNotasElementos = (id, conteudo, pin) => {
         }
     });
 
+    areaText.addEventListener("keyup", (e) => {
+        const editaInput = e.target.value;
+
+        updateStorage(id, editaInput);
+    });
+
     return divCampConteudo;
 
 }
@@ -177,6 +185,16 @@ const pinFunction = (id) => {
     recarregandoNotaVIsual();
 };
 
+const updateStorage = (id, editaInput) => {
+    const notaEdita = carregandoNotas();
+
+    const filtrandoEdit = notaEdita.filter((notaEdit) => notaEdit.id === id)[0];
+
+    filtrandoEdit.conteudo = editaInput;
+
+    salvandoNotaStorage(notaEdita);
+}
+
 const carregandoNotas = () => {
     const jsonNotasCarrega = JSON.parse(localStorage.getItem("notasCriadas") || "[]");
 
@@ -189,14 +207,52 @@ const carregandoNotas = () => {
     // nesse return antes de ter as funções de reorganizar por pin, pode utilizar a primeira váriavel jsonNotasCarrega.
 }
 
+// Acima o update é para quando editar a nota e está ligado ao evento Keyup la mais acima
+
 const salvandoNotaStorage = (notaStorage) => {
     localStorage.setItem("notasCriadas", JSON.stringify(notaStorage));
 }
 
+pesquisaInput.addEventListener("keyup", (e) => {
+    const inputPesq = e.target.value;
+
+    pesquisaFunction(inputPesq);
+})
+
+function pesquisaFunction(inputPesq) {
+    
+    const resultadosPesquisa = carregandoNotas().filter((notaPesq) => notaPesq.conteudo.includes(inputPesq));
+
+    if(inputPesq != "") {
+
+        limpandoNotPinned();
+
+        resultadosPesquisa.forEach((notaAchada) => {
+
+            const elementoPesqCriad = criarNotasElementos(notaAchada.id, notaAchada.conteudo)
+
+            notasCampo.appendChild(elementoPesqCriad);
+        })
+
+        return
+    };
+
+    recarregandoNotaVIsual();
+
+    // o function recarregandoNotaVIsual serve para quando eu limpar a barra de pesquisa, volte todas as notas
+}
 
 btnCriarNota.addEventListener("click", () => {
 
     adicionarNota();
 });
+
+inputCriar.addEventListener("keydown", (e) => {
+    
+    if (e.key === "Enter") {
+        
+		adicionarNota();
+	}
+})
 
 recarregandoNotaVIsual();
