@@ -4,6 +4,8 @@ const notasCampo = document.querySelector("#campoNotas");
 
 const pesquisaInput = document.querySelector("#ibusca");
 
+const exportBtn = document.querySelector("#exportarBTN")
+
 // esse recarregandoNotaVIsual serve para recarregar as notas com pin:true
 
 const recarregandoNotaVIsual = () => {
@@ -242,6 +244,30 @@ function pesquisaFunction(inputPesq) {
     // o function recarregandoNotaVIsual serve para quando eu limpar a barra de pesquisa, volte todas as notas
 }
 
+function exportCsvFunction() {
+
+    const notasExport = carregandoNotas();
+
+    const csvExport = [[
+        "ID", "CONTEUDO", "PIN"],
+        ...notasExport.map((notaExport) => [notaExport.id, notaExport.conteudo, notaExport.pin]),
+    ]
+    .map((e) => e.join(","))
+    .join("\n");
+
+    console.log(csvExport);
+
+    const linkCriado = document.createElement("a");
+
+    linkCriado.href = "data:text/csv;charset=utf-8," + encodeURI(csvExport);
+
+    linkCriado.target = "_blank";
+
+    linkCriado.download = "nota.csv";
+
+    linkCriado.click();
+}
+
 btnCriarNota.addEventListener("click", () => {
 
     adicionarNota();
@@ -253,6 +279,11 @@ inputCriar.addEventListener("keydown", (e) => {
         
 		adicionarNota();
 	}
+});
+
+exportBtn.addEventListener("click", () => {
+
+    exportCsvFunction();
 })
 
 recarregandoNotaVIsual();
