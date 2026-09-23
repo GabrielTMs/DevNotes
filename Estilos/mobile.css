@@ -1,0 +1,16 @@
+@media screen and (max-width: 930px) {
+    header {
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        gap: 22px;
+    }
+
+    div#campoNotas {
+        flex-flow: column;
+        align-self: center;
+        align-content: center;
+}
+    
+}
